@@ -118,7 +118,7 @@ public class IndexControl {
         reply.setUser(author);
         reply.setDate(Calendar.getInstance());
         posts.addReplyMem(byId, reply);
-        return "redirect:/post?userName=" + author.getUsername() + "&postId=" + byId.getId();
+        return "redirect:/post?postId=" + byId.getId();
     }
 
     @RequestMapping("/update")
@@ -140,6 +140,6 @@ public class IndexControl {
                               @RequestParam("repId") int idRep
     ) {
         posts.deleteReplyMem(id, idRep);
-        return "redirect:/post?userName=" + getUserName() + "&postId=" + id;
+        return "redirect:/post?postId=" + id;
     }
 }
