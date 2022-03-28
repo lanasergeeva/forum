@@ -16,7 +16,6 @@
 </c:url>
 
 <c:url var="editRef" value="/edit">
-    <c:param name="userName" value="${userInSession}"/>
 </c:url>
 <c:url var="logoutRef" value="/logout">
 </c:url>
@@ -61,7 +60,6 @@
                 <c:forEach var="post" items="${posts}">
                     <c:url var="postButton" value="/post">
                         <c:param name="postId" value="${post.id}"/>
-                        <c:param name="userName" value="${userInSession}"/>
                     </c:url>
                     <tr>
                         <td><b>${post.user.username}</b><br/>

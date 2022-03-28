@@ -31,6 +31,7 @@ public class IndexControl {
      * Примитивная реализация для хранения авторизованного пользователя.
      * Он добавляется в лист 1 раз.
      * Также здесь сохраняю сразу пользователя из дефолтных постов.
+     *
      * @param name имя авторизованного пользователя
      */
     private void setUserNameInSession(String name) {
@@ -68,10 +69,10 @@ public class IndexControl {
     }
 
     @GetMapping("/edit")
-    public String create(Model model, @RequestParam("userName") String name) {
+    public String create(Model model) {
         Post post = new Post();
         model.addAttribute("post", post);
-        model.addAttribute("userName", name);
+        model.addAttribute("userName", getUserName());
         System.out.println(usersList);
         return "edit";
     }
@@ -85,8 +86,7 @@ public class IndexControl {
     }
 
     @RequestMapping("/reply")
-    public String createReply(@RequestParam("postId") int id,
-                              @RequestParam("userName") String name, Model model) {
+    public String createReply(@RequestParam("postId") int id, Model model) {
         Post post = posts.findById(id);
         Reply reply = new Reply();
         model.addAttribute("reply", reply);
@@ -97,22 +97,20 @@ public class IndexControl {
 
 
     @GetMapping("/post")
-    public String post(@RequestParam("postId") int id,
-                       @RequestParam("userName") String name, Model model) {
+    public String post(@RequestParam("postId") int id, Model model) {
         Post byId = posts.findById(id);
         model.addAttribute("post", byId);
-        model.addAttribute("userName", name);
+        model.addAttribute("userName", getUserName());
         return "post";
     }
 
 
     @RequestMapping("/savereply")
     public String saveReply(@ModelAttribute Reply reply,
-                            @RequestParam("userName") String name,
                             @RequestParam("postId") int id) {
         Post byId = posts.findById(id);
         System.out.println("savereply пост " + byId);
-        User userByUsername = users.existUserByUsername(name);
+        User userByUsername = users.existUserByUsername(getUserName());
         User author = byId.getUser();
         if (!author.equals(userByUsername)) {
             author = userByUsername;
@@ -124,11 +122,10 @@ public class IndexControl {
     }
 
     @RequestMapping("/update")
-    public String updatePost(@RequestParam("postId") int id,
-                             @RequestParam("userName") String name, Model model) {
+    public String updatePost(@RequestParam("postId") int id, Model model) {
         Post post = posts.findById(id);
         model.addAttribute("post", post);
-        model.addAttribute("userName", name);
+        model.addAttribute("userName", getUserName());
         return "edit";
     }
 
@@ -140,9 +137,9 @@ public class IndexControl {
 
     @RequestMapping("/repdelete")
     public String deleteReply(@RequestParam("postId") int id,
-                              @RequestParam("repId") int idRep,
-                              @RequestParam("userName") String name) {
+                              @RequestParam("repId") int idRep
+    ) {
         posts.deleteReplyMem(id, idRep);
-        return "redirect:/post?userName=" + name + "&postId=" + id;
+        return "redirect:/post?userName=" + getUserName() + "&postId=" + id;
     }
 }

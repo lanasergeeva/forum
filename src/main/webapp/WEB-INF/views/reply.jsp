@@ -19,14 +19,14 @@
 <c:url var="indexRef" value="/index">
 </c:url>
 <c:url var="editRef" value="/edit">
-    <c:param name="userName" value="${userName}"/>
+
 </c:url>
 <c:url var="logoutRef" value="/logout">
 </c:url>
 
 <c:url var="updateButton" value="/update">
     <c:param name="postId" value="${post.id}"/>
-    <c:param name="userName" value="${userName}"/>
+
 </c:url>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light rounded" aria-label="Twelfth navbar example">
@@ -59,7 +59,6 @@
     <div class='border border-dark p-4 rounded' id='basicInfo'>
         <form:form action="savereply" modelAttribute="reply">
             <input type="hidden" name="postId" value="${post.id}">
-            <input type="hidden" name="userName" value="${userName}">
 
             <div class='form-group'>
                 <label for='samsDesc' class='text-primary'>Описание</label>

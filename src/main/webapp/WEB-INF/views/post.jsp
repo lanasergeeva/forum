@@ -19,16 +19,13 @@
 <c:url var="indexRef" value="/index">
 </c:url>
 <c:url var="editRef" value="/edit">
-    <c:param name="userName" value="${userName}"/>
 </c:url>
 <c:url var="repRef" value="/reply">
     <c:param name="postId" value="${post.id}"/>
-    <c:param name="userName" value="${userName}"/>
 </c:url>
 
 <c:url var="updateButton" value="/update">
     <c:param name="postId" value="${post.id}"/>
-    <c:param name="userName" value="${userName}"/>
 </c:url>
 <c:url var="deleteButton" value="/delete">
     <c:param name="acId" value="${post.id}"/>
@@ -132,7 +129,6 @@
             <c:url var="deleteReplyBut" value="/repdelete">
                 <c:param name="postId" value="${post.id}"/>
                 <c:param name="repId" value="${reply.id}"/>
-                <c:param name="userName" value="${userName}"/>
             </c:url>
 
             <div class="card-body">
