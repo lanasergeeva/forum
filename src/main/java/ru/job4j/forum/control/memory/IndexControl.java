@@ -1,19 +1,18 @@
 package ru.job4j.forum.control.memory;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.job4j.forum.model.Post;
 import ru.job4j.forum.model.Reply;
 import ru.job4j.forum.model.User;
-import ru.job4j.forum.service.PostService;
-import ru.job4j.forum.service.UserService;
+import ru.job4j.forum.services.memory.PostService;
+import ru.job4j.forum.services.memory.UserService;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-@Controller
+/*@Controller*/
 public class IndexControl {
 
     private final PostService posts;

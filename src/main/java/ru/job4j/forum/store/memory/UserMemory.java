@@ -1,4 +1,4 @@
-package ru.job4j.forum.memory;
+package ru.job4j.forum.store.memory;
 
 import org.springframework.stereotype.Repository;
 import ru.job4j.forum.model.User;

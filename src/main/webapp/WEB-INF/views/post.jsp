@@ -52,13 +52,12 @@
                     <a class="nav-link active">Выбранная тема</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="${logoutRef}">${userName} Выйти</a>
+                    <a class="nav-link" href="${logoutRef}">${user.username} Выйти</a>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
-<form:hidden path="id"/>
 <div class="container-fluid mt-100">
     <div class="row">
         <div class="col-md-12">
@@ -81,7 +80,7 @@
                     <p> <h5>${post.name}</h5> </p>
                     <p> ${post.description} </p>
                     <div class="px-4 pt-3 text-right">
-                        <c:if test="${post.user.username == userName}">
+                        <c:if test="${post.user.username == user.username}">
                             <button type="button" class="btn btn-danger" style="display: block; margin-left: auto;"
                                     onclick="window.location.href ='${deleteButton}'"><i
                                     class="ion ion-md-create"></i>&nbsp; Удалить
@@ -97,7 +96,7 @@
                         </button>
                     </div>
                     <div class="px-4 pt-3 text-right">
-                        <c:if test="${post.user.username == userName}">
+                        <c:if test="${post.user.username == user.username}">
                             <button type="button" class="btn btn-primary" style="display: block; margin-left: auto;"
                                     onclick="window.location.href ='${updateButton}'">
                                 <i class="ion ion-md-create"></i>&nbsp;
@@ -138,26 +137,17 @@
                 <div class="px-4 pt-3">
                 </div>
                 <div class="px-4 pt-3 text-right">
+                    <c:if test="${reply.user.username == user.username}">
                     <button type="button" class="btn btn-danger" style="display: block; margin-left: auto;"
                             onclick="window.location.href ='${deleteReplyBut}'"><i
                             class="ion ion-md-create"></i>&nbsp; Удалить
                     </button>
+                    </c:if>
                 </div>
             </div>
         </div>
     </c:forEach>
 </div>
 
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-        crossorigin="anonymous"></script>
 </body>
 </html>

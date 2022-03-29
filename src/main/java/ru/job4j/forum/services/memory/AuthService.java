@@ -1,10 +1,9 @@
-package ru.job4j.forum.service;
+package ru.job4j.forum.services.memory;
 
-import org.springframework.stereotype.Service;
-import ru.job4j.forum.memory.AuthorityMemory;
+import ru.job4j.forum.store.memory.AuthorityMemory;
 import ru.job4j.forum.model.Authority;
 
-@Service
+/*@Service*/
 public class AuthService {
     private final AuthorityMemory authorityMemory;
 

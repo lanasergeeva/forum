@@ -1,13 +1,12 @@
-package ru.job4j.forum.service;
+package ru.job4j.forum.services.memory;
 
-import org.springframework.stereotype.Service;
-import ru.job4j.forum.memory.PostMemory;
+import ru.job4j.forum.store.memory.PostMemory;
 import ru.job4j.forum.model.Post;
 import ru.job4j.forum.model.Reply;
 
 import java.util.List;
 
-@Service
+/*@Service*/
 public class PostService {
     private final PostMemory postMemory;
 

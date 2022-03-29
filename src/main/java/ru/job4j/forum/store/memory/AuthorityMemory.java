@@ -1,4 +1,4 @@
-package ru.job4j.forum.memory;
+package ru.job4j.forum.store.memory;
 
 import org.springframework.stereotype.Repository;
 import ru.job4j.forum.model.Authority;
@@ -13,10 +13,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class AuthorityMemory {
     private final Map<Integer, Authority> authorities = new HashMap<>();
     private final AtomicInteger authIndex = new AtomicInteger(1);
-
-    public AuthorityMemory() {
-
-    }
 
     public List<Authority> findAll() {
         System.out.println(authorities);

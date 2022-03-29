@@ -1,24 +1,37 @@
 package ru.job4j.forum.model;
 
+import javax.persistence.*;
 import java.util.Calendar;
 import java.util.Objects;
 
+@Entity
+@Table(name = "replies")
 public class Reply {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(name = "text")
     private String text;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created")
     private Calendar date;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    public static Reply of(String text, User user) {
+    @ManyToOne
+    @JoinColumn(name = "post_id", nullable = false)
+    private Post post;
+
+    public static Reply of(String text, User user, Post post) {
         Reply reply = new Reply();
         reply.setText(text);
         reply.setDate(Calendar.getInstance());
         reply.setUser(user);
+        reply.setPost(post);
         return reply;
-    }
-
-    public Reply(User user) {
-        this.user = user;
     }
 
     public Reply() {
@@ -54,6 +67,14 @@ public class Reply {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Post getPost() {
+        return post;
+    }
+
+    public void setPost(Post post) {
+        this.post = post;
     }
 
     @Override

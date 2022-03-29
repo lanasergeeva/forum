@@ -1,19 +1,37 @@
-Приложение форум.
+# Приложение forum.
 
-Вход в программу
-![alt text](https://github.com/lanasergeeva/forum/blob/master/images/login.jpg)
++ [Описание](#Описание-проекта)
++ [Технологии](#Используемые-технологии)
 
-Общий вид
+## Описание проекта
+
+Реализация закрытого форума. Доступ возможен только зарегистрированным пользователям. У пользователя есть возможность
+добавлять, редактировать, удалить свой пост, а также комментарировать посты других пользователей.
+
+## Используемые технологии
+
++ **Maven**
++ **HTML**, **BOOTSTRAP**,  **JSP**
++ **Java 17**, **Spring Boot**, **PostgreSQL**
+
+## Вход в программу
+
+![alt text](https://github.com/lanasergeeva/forum/blob/master/images/log.jpg)
+
+## Окно регистрации
+![alt text](https://github.com/lanasergeeva/forum/blob/master/images/log.jpg)
+
+## Общий вид
 ![alt text](https://github.com/lanasergeeva/forum/blob/master/images/view.jpg)
 
-Окно создания поста
-![alt text](https://github.com/lanasergeeva/forum/blob/master/images/newTopic.jpg)
+## Окно создания поста
+![alt text](https://github.com/lanasergeeva/forum/blob/master/images/newtopic.jpg)
 
-Окно создания комментария
-![alt text](https://github.com/lanasergeeva/forum/blob/master/images/reply.jpg)
+## Окно создания комментария
+![alt text](https://github.com/lanasergeeva/forum/blob/master/images/viewfreply.jpg)
 
-Изображение поста с комментарием от автора поста
-![alt text](https://github.com/lanasergeeva/forum/blob/master/images/reply1.jpg)
+## Вид для автора поста
+![alt text](https://github.com/lanasergeeva/forum/blob/master/images/viewforauthor.jpg)
 
-Изображение поста с комментарием не от автора поста.
-![alt text](https://github.com/lanasergeeva/forum/blob/master/images/reply2.jpg)
+## Вид поста для комментатора
+![alt text](https://github.com/lanasergeeva/forum/blob/master/images/viewforcom.jpg)

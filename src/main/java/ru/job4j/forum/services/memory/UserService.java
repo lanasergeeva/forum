@@ -1,12 +1,11 @@
-package ru.job4j.forum.service;
+package ru.job4j.forum.services.memory;
 
-import org.springframework.stereotype.Service;
-import ru.job4j.forum.memory.UserMemory;
+import ru.job4j.forum.store.memory.UserMemory;
 import ru.job4j.forum.model.User;
 
 import java.util.List;
 
-@Service
+/*@Service*/
 public class UserService {
 
     private final UserMemory userMemory;

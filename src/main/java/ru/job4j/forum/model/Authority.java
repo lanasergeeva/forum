@@ -1,15 +1,19 @@
 package ru.job4j.forum.model;
 
+import javax.persistence.*;
 import java.util.Objects;
 
-/*@Entity
-@Table(name = "authorities")*/
+@Entity
+@Table(name = "authorities")
 public class Authority {
-    /*   @Id
-       @GeneratedValue(strategy = GenerationType.IDENTITY)*/
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
+    @Column(name = "authority", nullable = false, unique = true)
     private String name;
+
+    public Authority() {
+    }
 
     public static Authority of(String name) {
         Authority authority = new Authority();
@@ -53,7 +57,7 @@ public class Authority {
     @Override
     public String toString() {
         return "Authority{" + "id=" + id
-               + ", authority='" + name + '\''
-               + '}';
+                + ", authority='" + name + '\''
+                + '}';
     }
 }

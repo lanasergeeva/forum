@@ -3,19 +3,19 @@ package ru.job4j.forum.model;
 import javax.persistence.*;
 import java.util.Objects;
 
-/*@Entity
-@Table(name = "users")*/
+@Entity
+@Table(name = "users")
 public class User {
-    /*    @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)*/
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
+    @Column(nullable = false)
     private String password;
-
+    @Column(nullable = false, unique = true)
     private String username;
 
-    /* @ManyToOne
-     @JoinColumn(name = "authority_id")*/
+    @ManyToOne
+    @JoinColumn(name = "authority_id")
     private Authority authority;
 
     private boolean enabled;
@@ -27,6 +27,9 @@ public class User {
         user.setEnabled(true);
         user.setAuthority(authority);
         return user;
+    }
+
+    public User() {
     }
 
     public int getId() {
