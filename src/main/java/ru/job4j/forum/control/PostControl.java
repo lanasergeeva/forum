@@ -3,10 +3,7 @@ package ru.job4j.forum.control;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import ru.job4j.forum.model.Post;
 import ru.job4j.forum.model.Reply;
 import org.springframework.security.core.userdetails.User;
@@ -29,7 +26,7 @@ public class PostControl {
         this.users = users;
     }
 
-    @RequestMapping({"/", "/index"})
+    @GetMapping({"/", "/index"})
     public String index(Model model) {
         model.addAttribute("posts", posts.findAll());
         model.addAttribute("user",
@@ -46,7 +43,7 @@ public class PostControl {
         return "edit";
     }
 
-    @RequestMapping("/save")
+    @PostMapping("/save")
     public String save(@ModelAttribute Post post) {
         User user = (User)
                 SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -55,12 +52,11 @@ public class PostControl {
         return "redirect:/";
     }
 
-    @RequestMapping("/reply")
+    @GetMapping("/reply")
     public String createReply(@RequestParam("postId") int id, Model model) {
-        Post post = posts.findById(id);
         Reply reply = new Reply();
         model.addAttribute("reply", reply);
-        model.addAttribute("post", post);
+        model.addAttribute("post", posts.findById(id));
         model.addAttribute("user",
                 SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         return "reply";
@@ -69,15 +65,14 @@ public class PostControl {
 
     @GetMapping("/post")
     public String post(@RequestParam("postId") int id, Model model) {
-        Post byId = posts.findById(id);
-        model.addAttribute("post", byId);
+        model.addAttribute("post", posts.findById(id));
         model.addAttribute("user",
                 SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         return "post";
     }
 
 
-    @RequestMapping("/savereply")
+    @PostMapping("/savereply")
     public String saveReply(@ModelAttribute Reply reply,
                             @RequestParam("postId") int id) {
         Post byId = posts.findById(id);
@@ -90,7 +85,7 @@ public class PostControl {
         return "redirect:/post?postId=" + byId.getId();
     }
 
-    @RequestMapping("/update")
+    @GetMapping("/update")
     public String updatePost(@RequestParam("postId") int id, Model model) {
         Post post = posts.findById(id);
         model.addAttribute("post", post);
@@ -99,13 +94,13 @@ public class PostControl {
         return "edit";
     }
 
-    @RequestMapping("/delete")
+    @GetMapping ("/delete")
     public String deletePost(@RequestParam("acId") int id) {
         posts.delete(id);
-        return "redirect:/";
+        return "redirect:/index";
     }
 
-    @RequestMapping("/repdelete")
+    @GetMapping("/repdelete")
     public String deleteReply(@RequestParam("postId") int id,
                               @RequestParam("repId") int idRep) {
         replies.deleteReply(idRep);
