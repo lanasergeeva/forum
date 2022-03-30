@@ -1,32 +1,40 @@
-package ru.job4j.forum;
+package ru.job4j.forum.control;
 
 import static org.hamcrest.Matchers.hasProperty;
 import static org.hamcrest.Matchers.is;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.Test;
 
-
+import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
+import ru.job4j.forum.Main;
 import ru.job4j.forum.model.Post;
 import ru.job4j.forum.model.User;
 import ru.job4j.forum.services.PostServiceData;
+import ru.job4j.forum.services.ReplyServices;
 
 
 @SpringBootTest(classes = Main.class)
 @AutoConfigureMockMvc
-class IndexTest {
+class IndexControlTest {
 
     @MockBean
-    protected PostServiceData service;
+    protected PostServiceData posts;
+
+    @MockBean
+    private ReplyServices replies;
 
     @Autowired
     private MockMvc mockMvc;
@@ -88,7 +96,7 @@ class IndexTest {
     public void whenUpdatePost() throws Exception {
         Post post = Post.of("name", "description", new User());
         post.setId(34);
-        when(service.findById(34)).thenReturn(post);
+        when(posts.findById(34)).thenReturn(post);
         this.mockMvc.perform(get("/update?postId=34"))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -124,5 +132,44 @@ class IndexTest {
         this.mockMvc.perform(get("/delete?acId="))
                 .andDo(print())
                 .andExpect(status().is4xxClientError());
+    }
+
+    @Test
+    @WithMockUser
+    public void whenSavePost() throws Exception {
+        this.mockMvc.perform(post("/save")
+                        .param("name", "Куплю ладу-грант. Дорого.")
+                        .param("description", "Год выпуска от 2020"))
+                .andDo(print())
+                .andExpect(status().is3xxRedirection());
+        ArgumentCaptor<Post> argument = ArgumentCaptor.forClass(Post.class);
+        verify(posts).save(argument.capture());
+        MatcherAssert.assertThat(argument.getValue().getName(), is("Куплю ладу-грант. Дорого."));
+        MatcherAssert.assertThat(argument.getValue().getDescription(), is("Год выпуска от 2020"));
+    }
+
+    @Test
+    @WithMockUser
+    public void whenDeletePost() throws Exception {
+        this.mockMvc.perform(get("/delete")
+                        .param("acId", "34"))
+                .andDo(print())
+                .andExpect(status().is3xxRedirection());
+        ArgumentCaptor<Integer> argument = ArgumentCaptor.forClass(Integer.class);
+        verify(posts).delete(argument.capture());
+        MatcherAssert.assertThat(argument.getValue(), is(34));
+    }
+
+    @Test
+    @WithMockUser
+    public void whenDeleteReply() throws Exception {
+        this.mockMvc.perform(get("/repdelete")
+                        .param("repId", "29")
+                        .param("postId", "34"))
+                .andDo(print())
+                .andExpect(status().is3xxRedirection());
+        ArgumentCaptor<Integer> argument = ArgumentCaptor.forClass(Integer.class);
+        verify(replies).deleteReply(argument.capture());
+        MatcherAssert.assertThat(argument.getValue(), is(29));
     }
 }
